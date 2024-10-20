@@ -112,8 +112,6 @@
     </div>
 </div>
 
-
-
 <style>
     /* Button hover effects */
     .btn-primary:hover, .btn-success:hover {

@@ -34,12 +34,12 @@
             </div>
         </div>
     </form>
-
-    <!-- Recipe Results -->
-    <h3 class="text-center mb-4 text-success" style="font-weight: bold;">Recipe Results</h3>
-    <div class="row">
+<!-- Recipe Results -->
+<h3 class="text-center mb-4 text-success" style="font-weight: bold;">Recipe Results</h3>
+<div class="d-flex justify-content-center">
+    <div class="row w-50">
         @forelse($recipes as $recipe)
-            <div class="col-md-6 mb-4">
+            <div class="col-12 mb-4">
                 <a href="{{ route('recipes.show', $recipe->id) }}" style="text-decoration: none; color: inherit;">
                     <div class="card shadow-sm h-100 recipe-card" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s; cursor: pointer;">
                         <div class="card-body">
@@ -76,7 +76,6 @@
         @endforelse
     </div>
 </div>
-
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
