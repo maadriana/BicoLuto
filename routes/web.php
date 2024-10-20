@@ -6,7 +6,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\FiltersController;
-use App\Http\Controllers\LogoutController;
 
 // Homepage route
 Route::get('/homepage', function () {
@@ -57,9 +56,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
     Route::post('/profile/update', [ProfileController::class, 'updateDetails'])->name('profile.update');
     Route::post('/profile/update-picture', [ProfileController::class, 'updateProfilePicture'])->name('profile.update.picture');
+    Route::post('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.delete');
 });
-
-Route::post('/profile/delete', [ProfileController::class, 'deleteAccount'])->name('profile.delete');
 
 Route::get('/dashboard.recipes', [RecipeController::class, 'index'])->name('recipes.index');
 Route::post('/dashboard.recipes', [RecipeController::class, 'store'])->name('recipes.store');
@@ -67,4 +65,8 @@ Route::post('/dashboard.recipes', [RecipeController::class, 'store'])->name('rec
 Route::get('/dashboard.addrecipe', [RecipeController::class, 'create'])->name('addrecipe');
 
 Route::get('/dashboard.recipes', [RecipeController::class, 'index'])->name('recipes.index');
+
+Route::get('/dashboard.recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
+
+
 

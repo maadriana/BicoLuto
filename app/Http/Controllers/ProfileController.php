@@ -47,38 +47,36 @@ class ProfileController extends Controller
     // Update profile picture
     public function updateProfilePicture(Request $request)
     {
-        
+
         $request->validate([
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
         $user = Auth::user();
 
-        
+
         if ($request->hasFile('profile_picture')) {
             $image = $request->file('profile_picture');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-            
+
             $image->storeAs('profile_pictures', $imageName, 'public');
 
-            
+
             $user->profile_picture = 'profile_pictures/' . $imageName;
             $user->save();
         }
 
         return redirect()->back()->with('success', 'Profile picture updated successfully!');
     }
-    public function deleteAccount(Request $request)
-   {
-    
-    $user = Auth::user();
+    public function destroy(Request $request)
+    {
+        $user = Auth::user();
 
-    // Delete the user
-    $user->delete();
+        $user->delete();
 
-    
-    return redirect('/homepage')->with('success', 'Your account has been deleted.');
+        Auth::logout();
+        return redirect()->route('homepage')->with('success', 'Your account has been deleted successfully.');
     }
 }
 
