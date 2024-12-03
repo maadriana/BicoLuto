@@ -49,6 +49,21 @@
             @enderror
         </div>
 
+        <!-- Recipe Difficulty -->
+        <div class="mb-3">
+            <label for="difficulty" class="form-label">Difficulty:</label>
+            <select name="difficulty" id="difficulty" class="form-control shadow-sm" required
+                style="border-radius: 10px; max-width: 50%;">
+                <option value="" disabled selected>Select Difficulty</option>
+                @foreach (['Easy', 'Intermediate', 'Expert'] as $level)
+                    <option value="{{ $level }}" {{ old('difficulty') == $level ? 'selected' : '' }}>{{ $level }}</option>
+                @endforeach
+            </select>
+            @error('difficulty')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
         <!-- Image Upload -->
         <div class="mb-3">
             <label for="image" class="form-label">Recipe Image:</label>
@@ -80,7 +95,6 @@
             </a>
         </div>
 
-    <!-- Success Message -->
     @if(session('success'))
         <div class="alert alert-success mt-4 text-center shadow-sm" style="border-radius: 10px; max-width: 100%;">
             {{ session('success') }}
@@ -89,27 +103,26 @@
 </div>
 
 <style>
-    .btn-success:hover {
-        background-color: #218838; /* Darker green for hover */
-        transform: scale(1.05);
+    .difficulty-btn {
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: normal;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
 
-    .btn-secondary:hover {
-        background-color: #5a6268; /* Darker gray for hover */
-        transform: scale(1.05);
+    .difficulty-btn:hover {
+        transform: scale(1.1);
+        opacity: 0.9;
     }
 
-    /* Add hover effect on input fields and textarea */
-    .form-control:hover {
-        border-color: #0d6efd; /* Primary color */
+    .difficulty-btn.active {
+        font-weight: bold;
+        border: 2px solid #000;
     }
 
-    /* Add focus effect to input fields and textarea */
-    .form-control:focus {
-        border-color: #0d6efd;
-        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3); /* Light blue shadow */
+    input[type="radio"]:focus + .difficulty-btn {
+        outline: none;
     }
-
 </style>
 @endsection
-

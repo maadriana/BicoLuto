@@ -66,7 +66,6 @@ Route::get('/dashboard.addrecipe', [RecipeController::class, 'create'])->name('a
 
 Route::get('/dashboard.recipes', [RecipeController::class, 'index'])->name('recipes.index');
 
-Route::get('/dashboard.recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
-
+Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 
 

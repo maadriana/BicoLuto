@@ -10,11 +10,10 @@ class CreateRecipesTable extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); 
-            $table->text('ingredients'); 
-            $table->text('instructions');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->string('image')->nullable(); 
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

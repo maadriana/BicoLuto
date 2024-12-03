@@ -4,33 +4,58 @@
 
 @section('content')
 <div class="mt-5 p-4" style="font-family: 'Arial', sans-serif; background-color: #f8f9fa; border-radius: 15px; width: 70%; margin: auto;">
-    <!-- Recipe Details Card -->
+
     <div class="card p-4 shadow-sm" style="background-color: #ffffff; border-radius: 15px;">
-        <!-- Recipe Image at the Top -->
+
         @if ($recipe->image)
-            <img src="{{ asset('storage/recipe_images/' . $recipe->image) }}" alt="{{ $recipe->name }}"
-                 class="img-fluid rounded shadow-sm" style="max-width: 400px; height: auto;">
+        <div class="text-center mb-4">
+            <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->name }}"
+                 class="img-fluid rounded shadow-sm" style="max-width: 350px; height: auto;">
+        </div>
         @else
-            <p class="text-muted">No image available</p>
+        <p class="text-muted text-center">No image available</p>
         @endif
 
-        <!-- Recipe Name -->
+
         <h2 class="text-center mb-4" style="font-weight: bold; color: #0d6efd;">{{ $recipe->name }}</h2>
 
         <!-- Recipe Content -->
         <div class="recipe-content">
+            <!-- Ingredients -->
             <h4 class="text-success" style="font-weight: bold;">Ingredients:</h4>
-            <p>{{ $recipe->ingredients }}</p>
+            <ul>
+                @foreach ($recipe->ingredients as $ingredient)
+                    <li>{{ $ingredient->ingredient_name }}</li>
+                @endforeach
+            </ul>
 
+            <!-- Description -->
             <h4 class="text-success" style="font-weight: bold;">Description:</h4>
             <p>{{ $recipe->description }}</p>
 
+            <!-- Difficulty -->
+            <h4 class="text-success" style="font-weight: bold;">Difficulty:</h4>
+            <p>
+                <span
+                    class="badge"
+                    style="
+                        background-color:
+                            {{ isset($recipe->difficulty) && $recipe->difficulty->difficulty === 'Easy' ? '#28a745' :
+                               (isset($recipe->difficulty) && $recipe->difficulty->difficulty === 'Intermediate' ? '#ffc107' :
+                               (isset($recipe->difficulty) && $recipe->difficulty->difficulty === 'Expert' ? '#dc3545' : '#6c757d')) }};
+                        color: white;
+                    ">
+                    {{ $recipe->difficulty->difficulty ?? 'N/A' }}
+                </span>
+            </p>
+
+            <!-- Instructions -->
             <h4 class="text-success" style="font-weight: bold;">Instructions:</h4>
-            <div>
-                @foreach (explode("\n", $recipe->instructions) as $instruction)
-                    <p>{{ $instruction }}</p>
+            <ol>
+                @foreach ($recipe->instructions as $instruction)
+                    <li>{{ $instruction->instruction }}</li>
                 @endforeach
-            </div>
+            </ol>
         </div>
 
         <!-- Back Buttons -->
