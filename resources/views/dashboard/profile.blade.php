@@ -125,8 +125,6 @@
     </form>
 </div>
 
-
-<!-- Additional Styles for Hover Effects -->
 <style>
     .btn:hover {
         transform: scale(1.05);

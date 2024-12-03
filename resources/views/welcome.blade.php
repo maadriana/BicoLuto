@@ -113,19 +113,19 @@
 </div>
 
 <style>
-    /* Button hover effects */
+
     .btn-primary:hover, .btn-success:hover {
         transform: scale(1.05);
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Card hover effects */
+
     .card:hover {
         transform: scale(1.05);
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Smooth transition for all effects */
+
     .btn, .card {
         transition: box-shadow 0.3s, transform 0.2s;
     }
