@@ -18,7 +18,7 @@ class RecipeController extends Controller
             'description' => 'required|string',
             'ingredients' => 'required|string',
             'instructions' => 'required|string',
-            'difficulty' => 'required|in:Easy,Intermediate,Expert',
+            'difficulty' => 'required|string|exists:difficulties,difficulty_name',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -46,26 +46,26 @@ class RecipeController extends Controller
             'difficulty_id' => $difficulty->id,
         ]);
 
-$ingredientNames = preg_split("/[\r\n,]+/", $request->input('ingredients'));
-$ingredientIds = [];
+        $ingredientNames = preg_split("/[\r\n,]+/", $request->input('ingredients'));
+        $ingredientIds = [];
 
-foreach ($ingredientNames as $ingredientName) {
-    $trimmedName = trim($ingredientName);
-    if (!empty($trimmedName)) {
+        foreach ($ingredientNames as $ingredientName) {
+           $trimmedName = trim($ingredientName);
+           if (!empty($trimmedName)) {
 
         $ingredient = Ingredient::firstOrCreate(['ingredient_name' => $trimmedName]);
         $ingredientIds[] = $ingredient->id;
+        }
     }
-}
 
 
-$recipe->ingredients()->attach($ingredientIds);
+        $recipe->ingredients()->attach($ingredientIds);
 
 
-$instructions = preg_split("/[\r\n]+/", $request->input('instructions'));
-foreach ($instructions as $instructionText) {
-    $trimmedInstruction = trim($instructionText);
-    if (!empty($trimmedInstruction)) {
+        $instructions = preg_split("/[\r\n]+/", $request->input('instructions'));
+        foreach ($instructions as $instructionText) {
+        $trimmedInstruction = trim($instructionText);
+        if (!empty($trimmedInstruction)) {
 
         $recipe->instructions()->create(['instruction' => $trimmedInstruction]);
     }
@@ -79,17 +79,15 @@ public function index(Request $request)
 {
     $searchTerm = $request->input('search');
 
-    if ($searchTerm && preg_match('/^[a-zA-Z\s]+$/', $searchTerm)) {
-        $lowerSearchTerm = strtolower(trim($searchTerm));
-        $searchWords = array_map('trim', explode(' ', $lowerSearchTerm));
-
+    if ($searchTerm) {
+        $normalizedSearch = preg_replace('/\s*,\s*/', ',', $searchTerm);
+        $searchWords = array_map('trim', explode(',', $normalizedSearch));
         $recipes = Recipe::where(function ($query) use ($searchWords) {
             foreach ($searchWords as $word) {
-                $query->orWhereRaw('LOWER(name) LIKE ?', ['%' . $word . '%']);
-
-                $query->orWhereHas('ingredients', function ($subQuery) use ($word) {
-                    $subQuery->whereRaw('LOWER(ingredient_name) LIKE ?', ['%' . $word . '%']);
-                });
+                $query->orWhereRaw('LOWER(name) LIKE ?', ['%' . strtolower($word) . '%'])
+                    ->orWhereHas('ingredients', function ($subQuery) use ($word) {
+                        $subQuery->whereRaw('LOWER(ingredient_name) LIKE ?', ['%' . strtolower($word) . '%']);
+                    });
             }
         })->get();
     } else {
@@ -99,15 +97,15 @@ public function index(Request $request)
     return view('dashboard.recipes', compact('recipes', 'searchTerm'));
     }
 
-
     public function create()
     {
         return view('dashboard.addrecipe');
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $recipe = Recipe::with(['ingredients', 'difficulty', 'instructions'])->findOrFail($id);
+        $searchTerm = $request->query('search');
 
         return view('dashboard.show', compact('recipe'));
     }

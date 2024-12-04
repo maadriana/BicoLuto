@@ -11,19 +11,18 @@ class Recipe extends Model
 
     protected $fillable = ['user_id', 'name', 'description', 'image'];
 
-    // A recipe belongs to a user
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // A recipe can have many instructions
+
     public function instructions()
     {
         return $this->hasMany(RecipeInstruction::class);
     }
 
-    // A recipe can have many ingredients
+
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class, 'recipe_ingredients');
@@ -31,7 +30,13 @@ class Recipe extends Model
 
     public function difficulty()
     {
-    return $this->hasOne(RecipeDifficulty::class);
+        return $this->hasOneThrough(
+            Difficulty::class,
+            RecipeDifficulty::class,
+            'recipe_id',
+            'id',
+            'id',
+            'difficulty_id'
+        );
     }
-
 }

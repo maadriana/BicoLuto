@@ -6,32 +6,30 @@
     <h2 class="text-center mb-4" style="font-size: 70px; font-weight: bold; color: #077807;">BicoLuto</h2>
     <p class="text-muted text-center mb-5" style="font-size: 18px;">Explore delicious Bicolano recipes, manage your profile, and more!</p>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <div class="d-flex justify-content-center gap-3 mb-5">
+    <!-- Buttons Section -->
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-5">
         <!-- Discover Recipes Button with Food Icon -->
-        <a href="{{ route('recipes.index') }}" class="btn btn-primary shadow-lg" style="width: 200px; height: 50px; font-size: 18px; border-radius: 25px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;">
-            <i class="fas fa-utensils me-2"></i>
-            Discover Recipes
+        <a href="{{ route('recipes.index') }}" class="btn btn-primary shadow-lg px-4 py-2 text-white d-flex align-items-center justify-content-center"
+           style="border-radius: 25px; transition: transform 0.3s, background-color 0.3s; font-size: 18px;">
+            <i class="fas fa-utensils me-2"></i> Discover Recipes
         </a>
 
         <!-- Manage Profile Button with Profile Icon -->
-        <a href="{{ route('profile') }}" class="btn btn-success shadow-lg" style="width: 200px; height: 50px; font-size: 18px; border-radius: 25px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;">
-            <i class="fas fa-user me-2"></i>
-            Manage Profile
+        <a href="{{ route('profile') }}" class="btn btn-success shadow-lg px-4 py-2 text-white d-flex align-items-center justify-content-center"
+           style="border-radius: 25px; transition: transform 0.3s, background-color 0.3s; font-size: 18px;">
+            <i class="fas fa-user me-2"></i> Manage Profile
         </a>
 
         <!-- Add New Recipe Button with a Chef Hat Icon -->
-           <a href="{{ route('addrecipe') }}" class="btn btn-primary shadow-lg"
-           style="width: 200px; height: 50px; font-size: 18px; border-radius: 25px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;">
-           <i class="fas fa-concierge-bell me-2"></i>
-           Add New Recipe
-         </a>
+        <a href="{{ route('addrecipe') }}" class="btn btn-warning shadow-lg px-4 py-2 text-dark d-flex align-items-center justify-content-center"
+           style="border-radius: 25px; transition: transform 0.3s, background-color 0.3s; font-size: 18px;">
+            <i class="fas fa-concierge-bell me-2"></i> Add New Recipe
+        </a>
     </div>
 
-<!-- Featured Dishes Section -->
-<h3 class="text-success text-center mb-4" style="font-weight: bold;">Featured Dishes</h3>
-<div class="row">
+    <!-- Featured Dishes Section -->
+    <h3 class="text-success text-center mb-4" style="font-weight: bold;">Featured Dishes</h3>
+    <div class="row justify-content-center">
 <!-- Box 1 -->
 <div class="col-12 col-sm-6 col-md-4 mb-4">
     <a href="{{ url('/recipes/1') }}" class="text-decoration-none">
@@ -72,7 +70,7 @@
 
     <!-- Box 4 -->
     <div class="col-12 col-sm-6 col-md-4 mb-4">
-        <a href="{{ url('/recipes/5') }}" class="text-decoration-none">
+        <a href="{{ url('/recipes/4') }}" class="text-decoration-none">
             <div class="card shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s; cursor: pointer;">
                 <img src="{{ asset('storage/recipe_images/14.png') }}" alt="Kandingga"
                      class="card-img-top" style="width: 100%; height: 230px; object-fit: cover;">
@@ -85,7 +83,7 @@
 
     <!-- Box 5 -->
     <div class="col-12 col-sm-6 col-md-4 mb-4">
-        <a href="{{ url('/recipes/6') }}" class="text-decoration-none">
+        <a href="{{ url('/recipes/5') }}" class="text-decoration-none">
             <div class="card shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s; cursor: pointer;">
                 <img src="{{ asset('storage/recipe_images/8.jpg') }}" alt="Ginataang Santol"
                      class="card-img-top" style="width: 100%; height: 230px; object-fit: cover;">
@@ -98,7 +96,7 @@
 
     <!-- Box 6 -->
     <div class="col-12 col-sm-6 col-md-4 mb-4">
-        <a href="{{ url('/recipes/7') }}" class="text-decoration-none">
+        <a href="{{ url('/recipes/6') }}" class="text-decoration-none">
             <div class="card shadow-sm h-100" style="border-radius: 15px; overflow: hidden; transition: transform 0.3s; cursor: pointer;">
                 <img src="{{ asset('storage/recipe_images/3.png') }}" alt="Kinunot"
                      class="card-img-top" style="width: 100%; height: 230px; object-fit: cover;">
@@ -109,25 +107,31 @@
         </a>
     </div>
 
+<!-- Styles -->
 <style>
-
-    .btn-primary:hover, .btn-success:hover {
-        transform: scale(1.05);
+    /* Button Hover Effects */
+    .btn-primary:hover, .btn-success:hover, .btn-warning:hover {
+        transform: scale(1.1);
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-
+    /* Card Hover Effects */
     .card:hover {
         transform: scale(1.05);
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
     }
 
-
+    /* Common Transition */
     .btn, .card {
         transition: box-shadow 0.3s, transform 0.2s;
     }
+
+    /* Center Elements on Mobile */
+    @media (max-width: 768px) {
+        .d-flex.justify-content-center {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 </style>
 @endsection
-
-
-

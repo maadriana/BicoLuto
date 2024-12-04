@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-5 p-4" style="font-family: 'Arial', sans-serif; background-color: #f8f9fa; border-radius: 10px; max-width: 600px;">
-    <h3 class="mb-4 text-center text-primary" style="font-weight: bold;">Add New Recipe</h3>
+    <h3 class="mb-4 text-center text-success" style="font-weight: bold;">Add New Recipe</h3>
 
     <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -82,17 +82,19 @@
                 Add Recipe
             </button>
 
-            <!-- Back to Recipes Button -->
-            <a href="{{ route('recipes.index') }}" class="btn btn-secondary shadow-sm ms-3 d-flex align-items-center justify-content-center"
-                style="width: 150px; height: 45px; border-radius: 25px; transition: background-color 0.3s, transform 0.2s;">
-                Back to Recipes
-            </a>
+           <!-- Back to Recipes Button -->
+           <a href="{{ route('recipes.index') }}"
+           class="btn shadow-sm ms-3 d-flex align-items-center justify-content-center"
+           style="width: 150px; height: 45px; border-radius: 25px; background-color: #6c757d; color: white; transition: background-color 0.3s, transform 0.2s;">
+           Back to Recipes
+        </a>
 
-            <!-- Back to Home Button -->
-            <a href="{{ route('welcome') }}" class="btn btn-secondary shadow-sm ms-3 d-flex align-items-center justify-content-center"
-                style="width: 150px; height: 45px; border-radius: 25px; transition: background-color 0.3s, transform 0.2s;">
-                Back to Home
-            </a>
+        <!-- Back to Home Button -->
+        <a href="{{ route('welcome') }}"
+           class="btn shadow-sm ms-3 d-flex align-items-center justify-content-center"
+           style="width: 150px; height: 45px; border-radius: 25px; background-color: #6c757d; color: white; transition: background-color 0.3s, transform 0.2s;">
+           Back to Home
+        </a>
         </div>
 
     @if(session('success'))
