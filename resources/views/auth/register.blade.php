@@ -21,7 +21,7 @@
                 <form method="POST" action="{{ route('register.post') }}">
                     @csrf
                     <div class="form-group mb-3">
-                        <input type="text" placeholder="Full Name" id="fullname" class="form-control" name="fullname" required autofocus>
+                        <input type="text" placeholder="Name" id="fullname" class="form-control" name="fullname" required autofocus>
                         @if ($errors->has('fullname'))
                             <span class="text-danger">{{ $errors->first('fullname') }}</span>
                         @endif
